@@ -11,12 +11,13 @@ const Home = () => {
   const[newtodo, setNewTodo] = useState("");
 
   const navigate = useNavigate()
+  const API = import.meta.env.VITE_BACKEND_URL
 
   useEffect(()=>{
     const fetchtodos = async() =>{
        try {
           setLoading(true)
-          const response = await axios.get("http://localhost:3300/todo/gettodo",
+          const response = await axios.get(`${API}/todo/gettodo`,
          {
            withCredentials: true,
            headers: {
@@ -39,7 +40,7 @@ const Home = () => {
   const todoCreate = async()=>{
     if(!newtodo) return;
     try {
-        const response = await axios.post("http://localhost:3300/todo/create",{
+        const response = await axios.post(`${API}/todo/create`,{
            text: newtodo,
            completed: false
         },{
@@ -55,7 +56,7 @@ const Home = () => {
   const todostatus = async(id)=>{
     const todo = todos.find((t)=>t._id === id)
     try {
-        const response = await axios.put(`http://localhost:3300/todo/update/${id}`,{
+        const response = await axios.put(`${API}/todo/update/${id}`,{
             ...todo,
             completed:!todo.completed
         },{
@@ -69,7 +70,7 @@ const Home = () => {
 
   const tododelete = async(id)=>{
     try {
-        await axios.delete(`http://localhost:3300/todo/delete/${id}`,{
+        await axios.delete(`${API}/todo/delete/${id}`,{
             withCredentials:true
         })
         setTodos(todos.filter((t)=>t._id!==id))
@@ -80,7 +81,7 @@ const Home = () => {
 
   const Logout = async () =>{
      try {
-       await axios.get("http://localhost:3300/user/logout",{
+       await axios.get(`${API}/user/logout`,{
         withCredentials: true
        })
        toast.success("Logout successful")

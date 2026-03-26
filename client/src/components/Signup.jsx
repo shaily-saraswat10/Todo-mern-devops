@@ -10,11 +10,12 @@ const Signup = () => {
   const [password, setPassword] = useState("")
 
   const navigate = useNavigate()
+  const API = import.meta.env.VITE_BACKEND_URL
 
   const handleRegister = async (e)=>{
     e.preventDefault();
     try {
-      const {data} = await axios.post("http://localhost:3300/user/register",{
+      const {data} = await axios.post(`${API}/user/register`,{
         username, email, password
       },{
         withCredentials: true,
