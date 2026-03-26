@@ -15,9 +15,14 @@ app.use(cookieParser());
 app.use(cors({
     origin: process.env.FRONTEND_URL,
     credentials: true,
-    methods: ["GET", "POST", "DELETE", "PUT"],
-    allowedHeaders: ["Content-Type","Authorization"]
 }))
+
+app.options("*", cors());
+
+app.use((req, res, next) => {
+  console.log("Incoming:", req.method, req.url);
+  next();
+});
 
 const connectDb = async () => {
     try {

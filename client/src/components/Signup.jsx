@@ -19,7 +19,6 @@ const Signup = () => {
         username, email, password
       },{
         withCredentials: true,
-        headers: {"Content-Type":"application/json"}
       })
       console.log(data);
       toast.success(data.message || "succesfully registered")
