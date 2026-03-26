@@ -20,9 +20,6 @@ const Home = () => {
           const response = await axios.get(`${API}/todo/gettodo`,
          {
            withCredentials: true,
-           headers: {
-             "Content-Type": "application/json"
-           }
         }
       );
           setTodos(response.data.todos)

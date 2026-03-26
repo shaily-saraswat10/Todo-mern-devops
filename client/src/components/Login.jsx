@@ -18,7 +18,6 @@ const Login = () => {
           email, password
       },{
         withCredentials: true,
-        headers: {"Content-Type":"application/json"}
       })
       console.log(data);
       toast.success(data.message || "Login sucessful")
