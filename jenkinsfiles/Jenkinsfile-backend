@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Cleaning Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        stage('Git clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/shaily-saraswat10/Todo-mern-devops.git'
+            }
+        }
+        stage('Docker image build') {
+            steps {
+                dir('server') {
+                    sh 'docker build -t todo-backend:01 .'
+                }
+            }
+        }
+        stage('Docker image push') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerHubCred',
+                    usernameVariable: 'dockerHubUser',
+                    passwordVariable: 'dockerHubPass')]) {
+                        sh 'docker tag todo-backend:01 $dockerHubUser/todo-backend:01'
+                        sh 'docker login -u $dockerHubUser -p $dockerHubPass'
+                        sh 'docker push $dockerHubUser/todo-backend:01'
+                    }
+            }
+        }
+    }
+}
