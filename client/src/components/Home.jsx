@@ -93,7 +93,7 @@ const Home = () => {
 
   return (
     <div className='bg-gradient-to-b from-[#68EACC] to-[#497BE8] w-full min-h-screen flex'>
-    <div className='bg-white max-w-xl lg:max-w-xl shadow-lg mx-8 sm:mx-auto p-8 mt-4 mb-4'>
+    <div className='bg-white max-w-xl lg:max-w-xl shadow-lg mx-8 sm:mx-auto p-8 mt-4 mb-10'>
 
     <h1 className='text-2xl font-semibold text-center'>Todo App</h1> 
 
