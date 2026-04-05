@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-backend
+  namespace: todo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-backend
+  template:
+    metadata:
+      labels:
+        app: todo-backend
+    spec:
+      containers:
+      - name: todo-backend
+        image: shailysaraswat/todo-backend:03
+        ports:
+        - containerPort: 3300
+        env:
+        - name: MONGODB_URI
+          value: "mongodb://admin:root@mongo-service:27017/todo-app?authSource=admin"
+        - name: JWT_SECRET
+          valueFrom:
+           secretKeyRef:
+            name: mysecret
+            key: jwt  
